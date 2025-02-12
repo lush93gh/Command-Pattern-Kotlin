@@ -22,7 +22,7 @@ class SimpleRemoteControlClient {
             // make requests.
             val remoteControl = SimpleRemoteControl()
             // The Receiver of the request.
-            val light = Light()
+            val light = Light("Living Room")
             // Create a command and pass the Receiver to it.
             val lightOnCommand = LightOnCommand(light)
             // Pass the command to the Invoker.

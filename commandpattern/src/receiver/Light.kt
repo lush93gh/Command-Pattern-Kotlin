@@ -1,11 +1,15 @@
 package receiver
 
-class Light {
+class Light(private val location: String) {
     fun on() {
-        println("Light is on")
+        println("$location light is on")
     }
 
     fun off() {
-        println("Light is off")
+        println("$location light is off")
+    }
+
+    override fun toString(): String {
+        return "$location light"
     }
 }

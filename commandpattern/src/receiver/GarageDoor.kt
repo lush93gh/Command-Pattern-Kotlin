@@ -1,23 +1,23 @@
 package receiver
 
-class GarageDoor {
+class GarageDoor(private val location: String) {
     fun up() {
-        println("Garage door is up")
+        println("$location garage door is up")
     }
 
     fun down() {
-        println("Garage door is down")
+        println("$location garage door is down")
     }
 
     fun stop() {
-        println("Garage door is stopped")
+        println("$location garage door is stopped")
     }
 
     fun lightOn() {
-        println("Garage light is on")
+        println("$location garage light is on")
     }
 
     fun lightOff() {
-        println("Garage light is off")
+        println("$location garage light is off")
     }
 }
