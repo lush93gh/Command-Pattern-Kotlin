@@ -1,8 +1,10 @@
 package client
 
+import command.CeilingFanCommand
 import command.LightOffCommand
 import command.LightOnCommand
 import invoker.RemoteControlWithUndo
+import receiver.CeilingFan
 import receiver.Light
 
 /**
@@ -15,7 +17,8 @@ class RemoteLoader {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            load()
+            //load()
+            loadCeilingFan()
         }
 
         private fun load() {
@@ -39,6 +42,30 @@ class RemoteLoader {
             // Turn the light off, back on, and undo.
             remoteControl.offButtonWasPushed(livingRoomLight.toString())
             remoteControl.onButtonWasPushed(livingRoomLight.toString())
+            print(remoteControl)
+            remoteControl.undoButtonWasPushed()
+        }
+
+        private fun loadCeilingFan() {
+            val remoteControl = RemoteControlWithUndo()
+
+            // Create a Light.
+            val ceilingFan = CeilingFan("Living Room")
+
+            // Instantiate three commands: medium, high, and off.
+            val ceilingFanMedium = CeilingFanCommand(ceilingFan, CeilingFan.Speed.Medium)
+            val ceilingFanHigh = CeilingFanCommand(ceilingFan, CeilingFan.Speed.High)
+            val ceilingFanOff = CeilingFanCommand(ceilingFan, CeilingFan.Speed.Off)
+
+            // Put medium and high in slot. We also load up the off command.
+            remoteControl.setCommand(ceilingFanMedium.toString(), ceilingFanMedium, ceilingFanOff)
+            remoteControl.setCommand(ceilingFanHigh.toString(), ceilingFanHigh, ceilingFanOff)
+
+            remoteControl.onButtonWasPushed(ceilingFanMedium.toString())
+            remoteControl.offButtonWasPushed(ceilingFanMedium.toString())
+            print(remoteControl)
+            remoteControl.undoButtonWasPushed()
+            remoteControl.onButtonWasPushed(ceilingFanHigh.toString())
             print(remoteControl)
             remoteControl.undoButtonWasPushed()
         }

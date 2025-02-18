@@ -57,8 +57,8 @@ class RemoteControlWithUndo {
     override fun toString(): String {
         var string = "\n------ Remote Control -------\n"
         onCommands.values.zip(offCommands.values).forEachIndexed { i, (onCommand, offCommand) ->
-            string += "[slot $i] ${onCommand.javaClass.simpleName}   ${offCommand.javaClass.simpleName}\n"
-            string += "[undo] ${lastCommand.javaClass.simpleName}\n"
+            string += "[slot $i] $onCommand   $offCommand\n"
+            string += "[undo] $lastCommand\n"
         }
         return string
     }

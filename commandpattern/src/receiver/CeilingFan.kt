@@ -1,34 +1,31 @@
 package receiver
 
 class CeilingFan(private val location: String) {
-    companion object {
-        private const val HIGH = 3
-        private const val MEDIUM = 2
-        private const val LOW = 1
-        private const val OFF = 0
+    enum class Speed(val value: Int) {
+        Off(0), Low(1), Medium(2), High(3)
     }
 
     // The CeilingFan instance holds local state representing
     // the speed of the ceiling fan.
-    private var speed: Int = OFF
+    private var speed: Speed = Speed.Off
 
     fun high() {
-        speed = HIGH
+        speed = Speed.High
         println("$location ceiling fan is on high")
     }
 
     fun medium() {
-        speed = MEDIUM
+        speed = Speed.Medium
         println("$location ceiling fan is on medium")
     }
 
     fun low() {
-        speed = LOW
+        speed = Speed.Low
         println("$location ceiling fan is on low")
     }
 
     fun off() {
-        speed = OFF
+        speed = Speed.Off
         println("$location ceiling fan is off")
     }
 
