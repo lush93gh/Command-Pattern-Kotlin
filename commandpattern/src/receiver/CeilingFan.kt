@@ -1,28 +1,40 @@
 package receiver
 
 class CeilingFan(private val location: String) {
-    private var speed: Int = 0
+    companion object {
+        private const val HIGH = 3
+        private const val MEDIUM = 2
+        private const val LOW = 1
+        private const val OFF = 0
+    }
+
+    // The CeilingFan instance holds local state representing
+    // the speed of the ceiling fan.
+    private var speed: Int = OFF
 
     fun high() {
-        speed = 3
+        speed = HIGH
         println("$location ceiling fan is on high")
     }
 
     fun medium() {
-        speed = 2
+        speed = MEDIUM
         println("$location ceiling fan is on medium")
     }
 
     fun low() {
-        speed = 1
+        speed = LOW
         println("$location ceiling fan is on low")
     }
 
     fun off() {
-        speed = 0
+        speed = OFF
         println("$location ceiling fan is off")
     }
 
+    /**
+     * Get the current speed of the ceiling fan.
+     */
     fun getSpeed() = speed
 
     override fun toString(): String {
