@@ -6,4 +6,8 @@ class NoCommand : Command {
 
     override fun undo() {
     }
+
+    override fun toString(): String {
+        return javaClass.simpleName
+    }
 }

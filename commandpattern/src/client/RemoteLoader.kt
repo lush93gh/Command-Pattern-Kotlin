@@ -1,11 +1,8 @@
 package client
 
-import command.CeilingFanCommand
-import command.LightOffCommand
-import command.LightOnCommand
+import command.*
 import invoker.RemoteControlWithUndo
-import receiver.CeilingFan
-import receiver.Light
+import receiver.*
 
 /**
  * The RemoteLoader creates a number of Command objects
@@ -18,7 +15,8 @@ class RemoteLoader {
         @JvmStatic
         fun main(args: Array<String>) {
             //load()
-            loadCeilingFan()
+            // loadCeilingFan()
+            loadMacroCommand()
         }
 
         private fun load() {
@@ -68,6 +66,42 @@ class RemoteLoader {
             remoteControl.onButtonWasPushed(ceilingFanHigh.toString())
             print(remoteControl)
             remoteControl.undoButtonWasPushed()
+        }
+
+        private fun loadMacroCommand() {
+            val remoteControl = RemoteControlWithUndo()
+
+            // Create all the devices: a light, tv, stereo, and hot tub.
+            val light = Light("Living Room")
+            val tv = TV("Living Room")
+            val stereo = Stereo("Living Room")
+            val hottub = Hottub()
+
+            // Create all the On commands to control them.
+            val lightOn = LightOnCommand(light)
+            val stereoOn = StereoOnCommand(stereo)
+            val tvOn = TVOnCommand(tv)
+            val hottubOn = HottubOnCommand(hottub)
+
+            // TODO Off buttons
+
+
+            // Create an array for On commands and an array for Off commands.
+            val partyOn = listOf(lightOn, stereoOn, tvOn, hottubOn)
+            // val partyOff = listOf(lightOff, stereoOff, tvOff, hottubOff)
+
+            // Create two corresponding macros to hold commands.
+            val partyOnMacro = MacroCommand(partyOn)
+            // val partyOffMacro = MacroCommand(partyOff)
+
+            // Assign the macro command to a button.
+            // remoteControl.setCommand(MacroCommand::javaClass.name, partyOnMacro, partyOffMacro)
+
+            println(remoteControl)
+            println("--- Pushing Macro On---")
+            remoteControl.onButtonWasPushed(MacroCommand::javaClass.name)
+            println("--- Pushing Macro Off---")
+            remoteControl.offButtonWasPushed(MacroCommand::javaClass.name)
         }
     }
 }
