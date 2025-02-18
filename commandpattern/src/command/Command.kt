@@ -6,7 +6,7 @@ package command
  * Commands encapsulate a set of actions on a specific vendor class.
  * The remote invokes these actions by calling the execute() method.
  */
-interface Command {
+fun interface Command {
     /**
      * All we need is one method call execute().
      */

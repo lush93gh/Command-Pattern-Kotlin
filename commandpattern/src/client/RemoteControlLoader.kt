@@ -1,6 +1,6 @@
 package client
 
-import command.*
+import command.StereoOnWithCDCommand
 import invoker.RemoteControl
 import receiver.CeilingFan
 import receiver.Light
@@ -28,25 +28,14 @@ class RemoteControlLoader {
             val ceilingFan = CeilingFan("Living Room")
             val stereo = Stereo("Living Room")
 
-            // Create all the Light Command objects.
-            val livingRoomLightOn = LightOnCommand(livingRoomLight)
-            val livingRoomLightOff = LightOffCommand(livingRoomLight)
-            val kitchenLightOn = LightOnCommand(kitchenLight)
-            val kitchenLightOff = LightOffCommand(kitchenLight)
-
-            // Create the On and Off for the ceiling fan.
-            val ceilingFanOn = CeilingFanOnCommand(ceilingFan)
-            val ceilingFanOff = CeilingFanOffCommand(ceilingFan)
-
             // Create the stereo On and Off commands.
             val stereoOnWithCD = StereoOnWithCDCommand(stereo, volume = 11)
-            val stereoOff = StereoOffCommand(stereo)
 
             // Load all the commands into the remote slots.
-            remoteControl.setCommand(livingRoomLight.toString(), livingRoomLightOn, livingRoomLightOff)
-            remoteControl.setCommand(kitchenLight.toString(), kitchenLightOn, kitchenLightOff)
-            remoteControl.setCommand(ceilingFan.toString(), ceilingFanOn, ceilingFanOff)
-            remoteControl.setCommand(stereo.toString(), stereoOnWithCD, stereoOff)
+            remoteControl.setCommand(livingRoomLight.toString(), { livingRoomLight.on() }, { livingRoomLight.off() })
+            remoteControl.setCommand(kitchenLight.toString(), { kitchenLight.on() }, { kitchenLight.off() })
+            remoteControl.setCommand(ceilingFan.toString(), { ceilingFan.high() }, { ceilingFan.off() })
+            remoteControl.setCommand(stereo.toString(), { stereoOnWithCD.execute() }, { stereo.off() })
 
             // Here’s where we use our toString() method
             // to print each remote slot and the command
