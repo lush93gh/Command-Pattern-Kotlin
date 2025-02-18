@@ -15,12 +15,18 @@ import receiver.Light
  */
 class LightOnCommand(private val light: Light) : Command {
     /**
-     * The execute() method calls
-     * the on() method on the
+     * Calls the on() method on the
      * receiving object, which is
      * the light we are controlling.
      */
     override fun execute() {
         light.on()
+    }
+
+    /**
+     * Turn the light back off.
+     */
+    override fun undo() {
+        light.off()
     }
 }

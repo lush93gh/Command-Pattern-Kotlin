@@ -21,4 +21,8 @@ class StereoOnWithCDCommand(
         stereo.setCD()
         stereo.setVolume(volume)
     }
+
+    override fun undo() {
+        stereo.off()
+    }
 }

@@ -12,4 +12,11 @@ class LightOffCommand(private val light: Light) : Command {
     override fun execute() {
         light.off()
     }
+
+    /**
+     * Turn the light back on.
+     */
+    override fun undo() {
+        light.on()
+    }
 }
